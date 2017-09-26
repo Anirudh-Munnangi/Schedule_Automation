@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Create an Account</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div id="outerDiv" style="margin-top:5px;margin-left:8%;margin-right:8%;border-style:groove;border-width:7px;">
+  <div class="container">
+    <h2><span style="text-decoration:underline;">Sign Up for Schedule Automation</span></h2>
+    <p> Please fill in the following details to create your account. </p>
+    <br/>
+    <h4> USER DETAILS: </h4>
+    <form method="post">{% csrf_token %}
+      <div class="form-group">
+        <label for="FirstName">First Name</label>
+        <input type="username" class="form-control" id="fname" placeholder="First Name" name="fname" required>
+      </div>
+      <div class="form-group">
+        <label for="LastName">Last Name</label>
+        <input type="username" class="form-control" id="lname" placeholder="Last Name" name="lname" required>
+      </div>
+      <br/>
+      <h4> ACCOUNT LOGIN DETAILS: </h4>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="username">username</label>
+        <input type="username" class="form-control" id="uname" placeholder="Enter username" name="uname" required>
+      </div>
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
+      </div>
+      <div class="form-group">
+        <label for="pwd">Repeat Password:</label>
+        <input type="password" class="form-control" id="rpwd" onchange="checkPasswordMatch();" placeholder="Repeat the password" name="rpwd" required>
+      </div>
+      <p id="warningMessage"></p>
+      <div class="checkbox">
+        <label><input type="checkbox" name="remember"> Remember me</label>
+      </div>
+      <button type="submit" id="submit_button" class="btn btn-default" name="submit_button">Submit</button>
+    </form>
+  </div>
+<br/>
+</div>
+<script>
+document.body.style.backgroundColor="#3BB9FF";
+
+  function checkPasswordMatch()
+  {
+    var p1=$("#pwd").val();
+    var p2=$("#rpwd").val();
+    var submit_button=$('#submit_button');
+    if (p1 != p2)
+    {
+      $("#warningMessage").html("Passwords do no match.");
+      $("#warningMessage").css("color","red");
+      $("#warningMessage").css("font-weight","bold");
+      $("#warningMessage").css("font-size","25px");
+      // hide the submit_button
+      //$("#submit_button").css("visibility","hidden");  // low class IE stuff
+      $("#submit_button").fadeOut();
+    }
+    else
+    {
+      $("#warningMessage").html("Passwords Match !");
+      $("#warningMessage").css("color","green");
+      $("#warningMessage").css("font-weight","bold");
+      $("#warningMessage").css("font-size","25px");
+      // showing the submit_button
+      //$("#submit_button").css("visibility","visible"); // low class IE stuff
+      $("#submit_button").fadeIn();
+    }
+  }
+
+  $(document).ready(function()
+  {
+    $("#pwd,#rpwd").keyup(checkPasswordMatch);
+  });
+</script>
+</body>
+</html>

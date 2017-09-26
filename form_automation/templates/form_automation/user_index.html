@@ -8,9 +8,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="background-color:#3BB9FF;">
 
-<div id="outerDiv" style="margin-top:5px;margin-left:8%;margin-right:8%;border-style:groove;border-width:7px;">
+<div id="outerDiv" style="margin-top:5px;margin-left:8%;margin-right:8%;border-style:groove;border-width:7px;background-color:#BCC6CC;">
   <div class="container">
     <h2><span style="text-decoration:underline;">Please Choose your service and request an appointment</span></h2>
     <p> Please fill in the following details to generate your request. </p>
@@ -27,31 +27,72 @@
       </div>
 
       <div class="form-group">
-        <label for="PhoneNumber">Phone Number</label>
+        <label id="PhoneNumber" for="PhoneNumber">Your Phone Number:</label><p id="text_PhoneNumber" style="color:white;background-color:green;display:none;">Please enter you phone number for communication purposes.<p>
         <input type="username" class="form-control" id="pno" placeholder="+1-000-000-0000" name="pno" required>
       </div>
 
       <div class="form-group">
-        <label for="Email">Email</label>
-        <input type="username" class="form-control" id="email" placeholder="email" name="email" required>
+        <label id="Email" for="Email">Your Email:</label><p id="text_Email" style="color:white;background-color:green;display:none;">Please enter your Email address.<p>
+        <input type="username" class="form-control" id="email" placeholder="email_val" name="email_val" required>
       </div>
 
       <div class="form-group">
-        <label for="appointmentTime">Appointment Time</label>
+        <label id="appointmentTime" for="appointmentTime">Requested Appointment Date and Time:</label><p id="text_appointmentTime" style="color:white;background-color:green;display:none;">Please enter the time and date when you want to schedule your appointment.<p>
         <input type="username" class="form-control" id="atime" placeholder="Ex: 11th October 1990" name="atime" required>
       </div>
 
       <div class="form-group">
-        <label for="Name">Name of Professional</label>
+        <label id="Name" for="Name">Name of Professional:</label><p id="text_Name" style="color:white;background-color:green;display:none;">Please enter the name of the Professional person with whom you want an appointment.<p>
         <input type="username" class="form-control" id="proname" placeholder="Name" name="proname" required>
       </div>
 
       <button type="submit" id="submit_button" class="btn btn-default" name="submit_button">Submit</button>
     </form>
   </div>
+  <br/>
 </div>
-
 <script>
+// Mouse Enter Jquery
+$("#PhoneNumber").mouseenter(function()
+{
+  $("#text_PhoneNumber").fadeIn("slow");
+});
+
+$("#Email").mouseenter(function()
+{
+  $("#text_Email").fadeIn("slow");
+});
+
+$("#appointmentTime").mouseenter(function()
+{
+  $("#text_appointmentTime").fadeIn("slow");
+});
+
+$("#Name").mouseenter(function()
+{
+  $("#text_Name").fadeIn("slow");
+});
+// Mouse Leave jquery
+$("#PhoneNumber").mouseleave(function()
+{
+  $("#text_PhoneNumber").fadeOut("fast");
+});
+
+$("#Email").mouseleave(function()
+{
+  $("#text_Email").fadeOut("fast");
+});
+
+$("#appointmentTime").mouseleave(function()
+{
+  $("#text_appointmentTime").fadeOut("fast");
+});
+
+$("#Name").mouseleave(function()
+{
+  $("#text_Name").fadeOut("fast");
+});
+
 </script>
 
 </body>

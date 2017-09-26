@@ -8,35 +8,112 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="background-color:#3BB9FF;">
   <div class="container">
-    <div class="jumbotron">
-      <h3>Your Schedule Requests</h3>
+    <div class="jumbotron" style="text-align:center;">
+      <h3><span style="font-weight:bold;">Your Schedule Requests</span></h3>
     </div>
   </div>
-  <div class="container">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Phone Number</th>
-          <th>Email</th>
-          <th>Requested Time/Schedule</th>
-          <th>Professional Staff</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for request in requests  %}
-        <tr>
-          <td>{{request.user_phone_number}}</td>
-          <td>{{request.user_email}}</td>
-          <td>{{request.request_datetime}}</td>
-          <td>{{request.request_name}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+  <br/>
+  <div id="outerDiv" style="margin-top:5px;margin-left:8%;margin-right:8%;border-style:groove;border-width:7px;background-color:#BCC6CC;">
+    <div class="container">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Requested Time/Schedule</th>
+            <th>Professional Staff</th>
+            <th style="text-align:center;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for request in requests  %}
+          <tr>
+            <td>{{request.user_phone_number}}</td>
+            <td>{{request.user_email}}</td>
+            <td>{{request.request_datetime}}</td>
+            <td>{{request.request_name}}</td>
+            <td>
+              <table class="table">
+                <tbody>
+                  <tr style="background-color:#C2DFFF;">
+                    <td id="approve"><button type="button" onclick="approve(this)">APPROVE</button></td>
+                    <td id="reject"><button type="button" onclick="reject(this)">REJECT</button></td>
+                    <td id="pending"><h5 style="background-color:green;color:white;text-align:center;">PENDING</h5></td>
+                  </tr>
+                </tbody>
+              </table>
+              </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 <script>
+function approve(eventNode)
+{
+parentTrNode=eventNode.parentElement.parentElement;
+parentTbodyNode=parentTrNode.parentElement;
+//Changing elements as per the requirements when approved.
+//First fade out the existing 3 options
+fade(parentTrNode);
+// Make a new tr object with one td element showing approved in green
+setTimeout( function()
+{
+  var trNew=document.createElement("tr");
+  var td=document.createElement("td");
+  td.style.backgroundColor="green";
+  td.style.color="white";
+  td.style.textAlign="center";
+  td.style.fontWeight="bold";
+  td.innerHTML="APPROVED";
+  trNew.appendChild(td);
+  // Accessing the tr of the last column
+  var trChild=parentTbodyNode.getElementsByTagName("tr")[0];
+  parentTbodyNode.replaceChild(trNew,trChild);
+  // CODE TO SEND A REPLY TEXT MESSAGE
+},2000);
+}
+function reject(eventNode)
+{
+  parentTrNode=eventNode.parentElement.parentElement;
+  parentTbodyNode=parentTrNode.parentElement;
+  //Changing elements as per the requirements when approved.
+  //First fade out the existing 3 options
+  fade(parentTrNode);
+  // Make a new tr object with one td element showing approved in green
+  setTimeout( function()
+  {
+    var trNew=document.createElement("tr");
+    var td=document.createElement("td");
+    td.style.backgroundColor="red";
+    td.style.color="white";
+    td.style.textAlign="center";
+    td.style.fontWeight="bold";
+    td.innerHTML="REJECTED";
+    trNew.appendChild(td);
+    // Accessing the tr of the last column
+    var trChild=parentTbodyNode.getElementsByTagName("tr")[0];
+    parentTbodyNode.replaceChild(trNew,trChild);
+    // CODE TO SEND A REPLY TEXT MESSAGE
+  },2000);
+}
+
+function fade(element)
+{
+  var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    }, 50);
+}
 </script>
 
 </body>
